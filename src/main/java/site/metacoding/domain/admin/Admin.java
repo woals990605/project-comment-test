@@ -1,4 +1,4 @@
-package site.metacoding.domain.user;
+package site.metacoding.domain.admin;
 
 import java.time.LocalDateTime;
 
@@ -19,14 +19,14 @@ import lombok.NoArgsConstructor;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class User {
+public class Admin {
+
+    @Column(length = 12)
+    private String name;
 
     @Id
     @Column(unique = true, nullable = false, length = 20)
-    private String id; // ssar
-
-    @Column(length = 12)
-    private String name; // 황재민
+    private String id;
 
     @Column(nullable = false, length = 20)
     private String password;
