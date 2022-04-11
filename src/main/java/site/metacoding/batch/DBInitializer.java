@@ -29,6 +29,8 @@ public class DBInitializer {
             keywords.add("제주시");
             keywords.add("서귀포시");
 
+            restaurantRepository.deleteAll();
+
             for (int i = 0; i < keywords.size(); i++) {
                 JejuDto body1 = rt.getForObject(
                         "https://map.naver.com/v5/api/search?caller=pcweb&query=" + keywords.get(i)
