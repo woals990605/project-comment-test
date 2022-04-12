@@ -39,15 +39,15 @@
               {{#Restaurant}}
                 <tr>
                     <td>{{#thumUrl}}{{thumUrl}}{{/thumUrl}}{{^thumUrl}}null{{/thumUrl}}</td>
-                    <td>{{name}}</td>
-                    <td>{{address}}</td>
-                    <td>{{telDisplay}}</td>
+                    <td>{{#name}}{{name}}{{/name}}{{^name}}null{{/name}}</td>
+                    <td>{{#address}}{{address}}{{/address}}{{^address}}null{{/address}}</td>
+                    <td>{{#telDisplay}}{{telDisplay}}{{/telDisplay}}{{^telDisplay}}null{{/telDisplay}}</td>
                     <td>{{#bizhourInfo}}{{bizhourInfo}}{{/bizhourInfo}}{{^bizhourInfo}}null{{/bizhourInfo}}</td>
-                    <td>{{homePage}}</td>
-                    <td>{{category}}</td>
+                    <td>{{#homepage}}{{homepage}}{{/homepage}}{{^homepage}}null{{/homepage}}</td>
+                    <td>{{#category}}{{category}}{{/category}}{{^category}}null{{/category}}</td>
                     <td>{{#menuInfo}}{{menuInfo}}{{/menuInfo}}{{^menuInfo}}null{{/menuInfo}}</td>
-                    <td>{{x}}</td>
-                    <td>{{y}}</td>
+                    <td>{{#x}}{{x}}{{/x}}{{^x}}null{{/x}}</td>
+                    <td>{{#y}}{{y}}{{/y}}{{^y}}null{{/y}}</td>
                     <td>{{createDate}}</td>
                     <td>{{updateDate}}</td>
                 </tr>

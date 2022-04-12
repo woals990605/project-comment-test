@@ -1,0 +1,26 @@
+{{> /layout/header}}
+
+<!-- 컨테이너 시작 -->
+<div class="container mt-3">
+
+  <!-- 회원가입 폼 시작 -->
+  <form>
+    <div class="mb-3 mt-3">
+      <input id="username" type="text" class="form-control" placeholder="Enter username" maxlength="12" required>
+    </div>
+    <div class="mb-3">
+      <input id="password" type="password" class="form-control" placeholder="Enter password" maxlength="12" required>
+    </div>
+    <div class="mb-3">
+      <input id="email" type="email" class="form-control" placeholder="Enter emails" maxlength="30" required>
+    </div>
+    <button id="btn-join" type="button" class="btn btn-primary">회원가입</button>
+  </form>
+  <!-- 회원가입 폼 끝 -->
+
+</div>
+<!-- 컨테이너 끝 -->
+
+<script src="/js/user.js"></script>
+
+{{> /layout/footer}}
