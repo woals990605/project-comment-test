@@ -5,7 +5,10 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,6 +25,9 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer no;
+
     @Column(unique = true, nullable = false, length = 20)
     private String id; // ssar
 
@@ -36,5 +42,8 @@ public class User {
 
     @CreatedDate
     private LocalDateTime createDate;
+
+    @Transient
+    private String remember;
 
 }
