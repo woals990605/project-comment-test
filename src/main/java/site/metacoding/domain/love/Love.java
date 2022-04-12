@@ -1,8 +1,7 @@
-package site.metacoding.domain.comment;
+package site.metacoding.domain.love;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -25,22 +24,19 @@ import site.metacoding.domain.user.User;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Comment {
+public class Love {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JoinColumn(name = "postId")
-    @ManyToOne
-    private Restaurant resturant;
-
     @JoinColumn(name = "userId")
     @ManyToOne
     private User user;
 
-    @Column(nullable = false, length = 300)
-    private String content;
+    @JoinColumn(name = "restId")
+    @ManyToOne
+    private Restaurant resturant;
 
     @CreatedDate
     private LocalDateTime createDate;
