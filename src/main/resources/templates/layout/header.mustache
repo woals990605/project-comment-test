@@ -2,7 +2,11 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
   <title>BLOG-V2</title>
+=======
+  <title>project</title>
+>>>>>>> 6e9609e244880cd979196e6a88d60ae8bebf2894
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 제이쿼리 추가 -->
@@ -28,10 +32,12 @@
         <ul class="navbar-nav">
           {{#principal}}
           <li class="nav-item">
-            <a class="nav-link" href="/s/user/{{id}}">회원정보</a>
+
+            <a class="nav-link" href="/s/user/{{no}}">회원정보</a>
           </li>
           <li class="nav-item">
-            <a id="btn-logout" class="nav-link" href="javascript:void(0)">로그아웃</a>
+            <a id="btn-logout" class="nav-link" href="/logout">로그아웃</a>
+
           </li>
           {{/principal}}
           {{^principal}}

@@ -4,23 +4,67 @@
 <div class="container mt-3">
 
   <!-- 회원가입 폼 시작 -->
-  <form>
-    <div class="mb-3 mt-3">
-      <input id="username" type="text" class="form-control" placeholder="Enter username" maxlength="12" required>
-    </div>
-    <div class="mb-3">
-      <input id="password" type="password" class="form-control" placeholder="Enter password" maxlength="12" required>
-    </div>
-    <div class="mb-3">
-      <input id="email" type="email" class="form-control" placeholder="Enter emails" maxlength="30" required>
-    </div>
-    <button id="btn-join" type="button" class="btn btn-primary">회원가입</button>
+  <form action="/join" method="post">
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Enter name" name="name" id="name" required>
+      </div>
+      <div class="mb-3 mt-3">
+        <input type="text" class="form-control" placeholder="Enter id" name="id" id="id" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Enter password" name="password" required maxlength="12">
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Enter passwordCheck" name="password" required maxlength="12">
+      </div>
+      <div class="mb-3">
+          <input type="email" class="form-control" placeholder="Enter email" name="email" id="email">
+        </div>
+      <button type="submit" class="btn btn-dark">회원가입</button>
   </form>
   <!-- 회원가입 폼 끝 -->
 
 </div>
 <!-- 컨테이너 끝 -->
 
-<script src="/js/user.js"></script>
+<script>
+
+$("#id").keyup((event)=>{
+          //console.log(event.target.value);
+          idSameCheck(event.target.value);
+        });
+
+$("#email").keyup((event)=>{
+          //console.log(event.target.value);
+          emailSameCheck(event.target.value);
+        });
+
+
+async function idSameCheck(){
+  let id = $("#id").val();
+  let response = await fetch(`/api/user/id/same-check?id=${id}`);
+  let responseJson = await response.json();
+
+  if (responseJson.data == "있어"){
+  alert("이미 있는 아이디입니다.");
+  let prevUserId = $("#id").val().slice(0,-1);
+  $("#id").val(prevUserId);
+}
+}
+
+async function emailSameCheck(){
+  let email = $("#email").val();
+  let response = await fetch(`/api/user/email/same-check?email=${email}`);
+  let responseJson = await response.json();
+
+  if (responseJson.data == "있어"){
+  alert("이미 있는 이메일입니다.");
+  let prevUseremail = $("#email").val().slice(0,-1);
+  $("#email").val(prevUseremail);
+}
+}
+
+</script>
+
 
 {{> /layout/footer}}

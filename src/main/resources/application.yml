@@ -12,6 +12,18 @@ server:
 # ddl-auto : none는 서버 실행할 때마다 아무것도 하지 않는 옵션이다.
 # ddl-auto : update는 필드 수정시에 필요한 옵션이다.
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 아이디
+    password: 비밀번호
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
   mustache:
     expose-session-attributes: true
   datasource:
@@ -22,7 +34,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true

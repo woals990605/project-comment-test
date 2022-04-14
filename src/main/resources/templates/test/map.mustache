@@ -25,17 +25,18 @@
         };
         loading();
         // 지도 생성
-        var position = new naver.maps.LatLng(37.747381503046, 127.630154310527);
-        var map = new naver.maps.Map('map', {
+        var position = new kakao.maps.LatLng(37.747381503046, 127.630154310527);
+        var map = new kakao.maps.Map('map', {
             center: position,
             zoom: 10
         });
         // 지도 리스너 생성
-        naver.maps.Event.addListener(map, 'click', function(event) {
+        kakao.maps.Event.addListener(map, 'click', function(event) {
             // 클릭한 지점을 중심으로 확대되야 해서 클릭한 부분의 좌표가 필요
             x = event.coord.x;
             y = event.coord.y;
             map.setCenter(new naver.maps.LatLng(y, x));
+
             map.setZoom(map.zoom + 3); 
         });
         // 좌표 생성 함수
@@ -43,16 +44,16 @@
             // 좌표값으로 마커 생성
             for (point of points) {
                 var markerOptions = {
-                    position: new naver.maps.LatLng(point[0], point[1]),
+                    position: new kakako.maps.LatLng(point[0], point[1]),
                     map: map,
                     icon: './img/pin_default.png'
                 };
-                var marker = new naver.maps.Marker(markerOptions);
+                var marker = new kakao.maps.Marker(markerOptions);
                 // 마커 리스너 생성 (마커와 지도 클릭이 별개로 구분되어 필요)
-                naver.maps.Event.addListener(marker, 'click', function(event) {
+                kakao.maps.Event.addListener(marker, 'click', function(event) {
                     x = event.coord.x;
                     y = event.coord.y;
-                    map.setCenter(new naver.maps.LatLng(y, x));
+                    map.setCenter(new kakao.maps.LatLng(y, x));
                     console.log(event.coord);
                     map.setZoom(map.zoom + 3);
                 });
