@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>지도</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb9105e000d4e4331f3b2782f38b56e8"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=UCqG5wdGEdtBzN_OtTKT"></script>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
             x = event.coord.x;
             y = event.coord.y;
             map.setCenter(new naver.maps.LatLng(y, x));
-            map.setZoom(map.zoom + 3); // ++는 안되서 +1로 변경 // +1씩은 너무 작아서 +3변경
+            map.setZoom(map.zoom + 3); 
         });
         // 좌표 생성 함수
         let makeMarker = () => {
