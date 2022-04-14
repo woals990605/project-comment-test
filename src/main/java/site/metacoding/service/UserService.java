@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.domain.handler.CustomException;
 import site.metacoding.domain.user.User;
 import site.metacoding.domain.user.UserRepository;
-
-
+import site.metacoding.util.email.EmailUtil;
+import site.metacoding.web.dto.user.PasswordResetReqDto;
 
 @RequiredArgsConstructor
 // 트랜잭션을 관리하는 오브젝트 : 서비스
@@ -18,10 +19,52 @@ import site.metacoding.domain.user.UserRepository;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final EmailUtil emailUtil;
+
+    @Transactional
+    public void 패스워드초기화(PasswordResetReqDto passwordResetReqDto) {
+        // 1. username, email 이 같은 것이 있는지 체크 (DB)
+        Optional<User> userOp = userRepository.findPassword(
+                passwordResetReqDto.getName(),
+                passwordResetReqDto.getId(),
+                passwordResetReqDto.getEmail());
+
+        // 2. 같은 것이 있다면 DB password 초기화 - BCrypt 해시 - update 하기 (DB)
+        if (userOp.isPresent()) {
+            User userEntity = userOp.get(); // 영속화
+            userEntity.setPassword("9999");
+        } else {
+            throw new CustomException("해당 이메일이 존재하지 않습니다.");
+        }
+
+        // 3. 초기화된 비밀번호 이메일로 전송
+        emailUtil.sendEmail("woals990605@naver.com", "비밀번호 초기화", "초기화된 비밀번호 : 9999");
+    } // 더티체킹 (update)
+
+    public String 유저아이디검사(String id) {
+        User userEntity = userRepository.mUsernameSameCheck(id);
+
+        if (userEntity == null) {
+            return "없어";
+        } else {
+            return "있어";
+        }
+    }
+
+    public String 유저이메일검사(String email) {
+        User userEntity = userRepository.mEmailSameCheck(email);
+
+        if (userEntity == null) {
+            return "없어";
+        } else {
+            return "있어";
+        }
+    }
 
     @Transactional
     public void 회원가입(User user) {
         // save하면 DB에 INSERT하고 INSERT된 결과를 다시 return 해준다. -> jpa가 리턴해줌
+
         userRepository.save(user);
     }
 

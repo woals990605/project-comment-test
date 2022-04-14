@@ -1,6 +1,7 @@
 package site.metacoding.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,17 @@ public class PostService {
         } else {
             return restaurantRepository.mSearch(keyword);
         }
+    }
+
+    public Restaurant 글상세보기(Integer id) {
+        Optional<Restaurant> postOp = restaurantRepository.findById(id);
+
+        if (postOp.isPresent()) {
+            Restaurant postEntity = postOp.get();
+            return postEntity;
+        } else {
+            return null;
+        }
+
     }
 }

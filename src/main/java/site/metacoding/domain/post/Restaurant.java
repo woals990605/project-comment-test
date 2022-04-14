@@ -54,15 +54,4 @@ public class Restaurant {
     @LastModifiedDate
     private LocalDateTime updateDate;
 
-    public void setThumUrl(String thumUrl2) {
-    }
-
-    public void setName(String name2) {
-    }
-
-    public void setAddress(String address2) {
-    }
-
-    public void setTelDisplay(String telDisplay2) {
-    }
 }
