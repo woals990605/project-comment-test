@@ -1,5 +1,7 @@
 package site.metacoding.web;
 
+import java.util.Optional;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.domain.handler.CustomException;
 import site.metacoding.domain.user.User;
 import site.metacoding.service.UserService;
 import site.metacoding.util.UtilValid;
 import site.metacoding.web.dto.ResponseDto;
+import site.metacoding.web.dto.user.IdFindReqDto;
 import site.metacoding.web.dto.user.JoinReqDto;
+import site.metacoding.web.dto.user.LoginReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
 
 @RequiredArgsConstructor
@@ -41,6 +46,30 @@ public class UserController {
     public @ResponseBody ResponseDto<String> sameEmailCheck(String email) {
         String data = userService.유저이메일검사(email);
         return new ResponseDto<String>(1, "통신성공", data);
+    }
+
+    @GetMapping("/user/id-find-form")
+    public String idFindForm() {
+        return "/user/idFindForm";
+    }
+
+    @PostMapping("/user/id-find")
+    public String idFind(@Valid IdFindReqDto idFindReqDto, BindingResult bindingResult) {
+
+        UtilValid.요청에러처리(bindingResult);
+
+        userService.아이디찾기(idFindReqDto);
+
+        return "/user/id-show-form";
+    }
+
+    @PostMapping("/user/id-show-form")
+    public String idShowForm(@Valid IdFindReqDto idFindReqDto, BindingResult bindingResult, Model model) {
+        UtilValid.요청에러처리(bindingResult);
+
+        model.addAttribute("id", userService.아이디찾기(idFindReqDto));
+
+        return "/user/idShowForm";
     }
 
     @GetMapping("/user/password-reset-form")
@@ -98,20 +127,28 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(User user, HttpServletResponse response) {
+    public String login(@Valid LoginReqDto loginReqDto, BindingResult bindingResult, HttpServletResponse response) {
+        System.out.println("사용자로 부터 받은 username, password : " + loginReqDto);
 
-        System.out.println("사용자로 부터 받은 username, password : " + user);
+        UtilValid.요청에러처리(bindingResult);
 
-        User userEntity = userService.로그인(user);
+        Optional<User> userOp = userService.로그인(loginReqDto.toEntity());
 
-        if (userEntity != null) {
+        if (userOp.isPresent()) {
+            User userEntity = userOp.get();
+
+            userEntity.setRemember(loginReqDto.getRemember());
+
             session.setAttribute("principal", userEntity);
-            if (user.getRemember() != null && user.getRemember().equals("on")) {
-                response.addHeader("Set-Cookie", "remember=" + user.getId());
+
+            if (userEntity.getRemember() != null && userEntity.getRemember().equals("on")) {
+                response.addHeader("Set-Cookie", "remember=" + userEntity.getId());
             }
+
             return "redirect:/";
+
         } else {
-            return "redirect:/login-form";
+            throw new CustomException("입력하신 아이디나 비밀번호가 틀렸습니다.");
         }
 
     }

@@ -1,0 +1,22 @@
+{{> /layout/header}}
+
+<!-- 컨테이너 시작 -->
+<div class="container mt-3">
+
+  <!-- 회원가입 폼 시작 -->
+  <form action="/user/id-show" method="post">
+      <div class="mb-3 mt-3">
+        <h1>회원의 아이디 : {{id}}</h1>
+      </div>
+      <button type="submit" class="btn btn-dark">확인</button>
+  </form>
+  <div class="my_auth_form_box_link">
+    <div><a href="/login-form">로그인</a></div>
+    <div><a href="/join-form">비밀번호 찾기</a></div>
+</div>
+  <!-- 회원가입 폼 끝 -->
+
+</div>
+<!-- 컨테이너 끝 -->
+
+{{> /layout/footer}}

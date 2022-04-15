@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data // Getter, Setter, toString
-public class PasswordResetReqDto {
+public class IdFindReqDto {
 
-    @Size(min = 4, max = 20)
+    @Size(min = 2, max = 30)
     @NotBlank
-    private String id;
+    private String name;
 
     @Size(min = 4, max = 30)
     @Email
