@@ -30,7 +30,7 @@ public class PostService {
             Restaurant postEntity = postOp.get();
             return postEntity;
         } else {
-            return null;
+            throw new RuntimeException("해당 게시글을 찾을 수 없습니다.");
         }
 
     }

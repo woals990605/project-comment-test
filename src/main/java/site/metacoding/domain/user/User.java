@@ -31,7 +31,7 @@ public class User {
     @Column(unique = true, nullable = false, length = 20)
     private String id; // ssar
 
-    @Column(length = 12)
+    @Column(length = 30)
     private String name; // 황재민
 
     @Column(nullable = false, length = 20)

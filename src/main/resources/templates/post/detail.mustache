@@ -1,41 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    {{>/layout/post-header}}
 
-</head>
-<!--헤더 시작-->
-<body>
-    <header>
-        <nav> <!--css 색 white로 바꾸기-->
-            <div class="title">
-                <h1>혼저 왕 먹읍서</h1>
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="/loginForm">로그인</a></li>
-                    <li><a href="/joinForm">회원가입</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-<!--메인 시작-->
-    <div class="main">
-        <div class="background"> <!--css 색 white로 바꾸기-->
-            <div class="page">
-                <div class="data">
+    <div class="main_box">
+        <div class="background">
+            <!-- detail page start -->
+            <div class="detail_page">
+                <!-- data box start -->
+                <div class="data_box">
+                    <!-- img box start -->
                     <div class="img_box">
-                        <div class="photo_box">사진
-                            <div>{{Restaurant.thumUrl}}</div>
-                        </div>
+                        <div class="photo_box">{{Restaurant.thumUrl}}</div>
                         </br>
                         <div class="map_api">지도</div>
                     </div>
+                    <!-- info start -->
                     <div class="info_box">
                         <div class="info_detail_box">설명
                             <div>{{Restaurant.name}}</div>
@@ -47,23 +24,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="comment">
+                <!-- comment start -->
+                <div class="comment_box">
+                    <!-- cbox write start -->
                     <div class="cbox_write_area">
-                        <input class="comment_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
+                        <input class="cbox_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
                     </div>
-                    <div class="cbox_view_comment">지난 댓글 박스</div>
+                    <!-- cbox view start -->
+                    <div class="cbox_view_comment">
+                        <div class="cbox_comment_box"></div>
+                    </div>
                 </div>
             </div>
         </div>
-
-    
     </div>
-<!--푸터 시작-->
-    <footer>
-        <div class="content">
-            <h3>혼저 왕 먹읍서</h3>
-            <p>© green2022@gmail.com</p>
-        </div>
-<!--푸터 끝-->
-</body>
-</html>
+    
+    {{>/layout/footer}}

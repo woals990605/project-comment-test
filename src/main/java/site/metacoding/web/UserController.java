@@ -99,7 +99,7 @@ public class UserController {
     public String join(@Valid JoinReqDto joinReqDto, BindingResult bindingResult) {
 
         UtilValid.요청에러처리(bindingResult);
-
+        System.out.println("나와라 얍 : " + joinReqDto.toString());
         userService.회원가입(joinReqDto.toEntity());
 
         // redirect:매핑주소

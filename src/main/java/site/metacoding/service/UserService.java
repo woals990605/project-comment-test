@@ -11,6 +11,7 @@ import site.metacoding.domain.user.User;
 import site.metacoding.domain.user.UserRepository;
 import site.metacoding.util.email.EmailUtil;
 import site.metacoding.web.dto.user.IdFindReqDto;
+import site.metacoding.web.dto.user.JoinReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
 
 @RequiredArgsConstructor
