@@ -2,6 +2,9 @@ package site.metacoding.web;
 
 import java.util.List;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.domain.post.Restaurant;
-import site.metacoding.domain.user.User;
 import site.metacoding.service.PostService;
 
 @RequiredArgsConstructor
@@ -18,6 +20,7 @@ import site.metacoding.service.PostService;
 public class PostController {
 
     private final PostService postService;
+    private final HttpSession session;
 
     @GetMapping({ "/", "/post/list" })
     public String search(@RequestParam(defaultValue = "") String keyword, Model model) {
@@ -37,8 +40,8 @@ public class PostController {
         // if (postEntity == null) {
         // return "error/page1";
         // }
-
         model.addAttribute("Restaurant", postEntity);
+        model.addAttribute("postId", postEntity);
         return "post/detail";
 
     }

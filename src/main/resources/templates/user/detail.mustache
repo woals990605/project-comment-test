@@ -1,4 +1,4 @@
-{{> /layout/header}}
+{{> /layout/post-header}}
 
 <!-- 컨테이너 시작 -->
 <div class="container mt-3">
@@ -13,6 +13,9 @@
     </div>
     <div class="mb-3">
         {{user.email}}
+    </div>
+    <div class="mb-3">
+        {{user.createDate}}
     </div>
     <a href="/s/user/update-form" class="btn btn-secondary">회원정보 수정 </a>
 

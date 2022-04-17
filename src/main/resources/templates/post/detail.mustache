@@ -27,9 +27,11 @@
                 <!-- comment start -->
                 <div class="comment_box">
                     <!-- cbox write start -->
-                    <div class="cbox_write_area">
-                        <input class="cbox_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
-                    </div>
+                    <form action="/s/post/{{postId}}/comment" method="post">
+                        <div class="cbox_write_area">
+                            <input class="cbox_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
+                        </div>
+                    </form>
                     <!-- cbox view start -->
                     <div class="cbox_view_comment">
                         <div class="cbox_comment_box"></div>
