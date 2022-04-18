@@ -1,0 +1,28 @@
+
+
+{{> /layout/post-header}}
+
+
+<!-- 컨테이너 시작 -->
+<div class="container mt-3">
+
+  <!-- 회원가입 폼 시작 -->
+  <form action="/user/id-find" method="post">
+      <div class="mb-3 mt-3">
+        <input type="text" class="form-control" placeholder="Enter name" name="name" id="name" required>
+      </div>
+      <div class="mb-3">
+          <input type="email" class="form-control" placeholder="Enter email" maxlength="30" name="email" id="email">
+        </div>
+      <button type="submit" class="btn btn-dark">아이디 찾기</button>
+  </form>
+  <div class="my_auth_form_box_link">
+    <div><a href="/login-form">로그인</a></div>
+    <div><a href="/join-form">비밀번호 찾기</a></div>
+</div>
+  <!-- 회원가입 폼 끝 -->
+
+</div>
+<!-- 컨테이너 끝 -->
+
+{{> /layout/footer}}
