@@ -1,0 +1,68 @@
+    {{>/layout/post-header}}
+
+    <div class="main_box">
+        <div class="background">
+            <!-- detail page start -->
+            <div class="detail_page">
+                <!-- data box start -->
+                <div class="data_box">
+                    <!-- img box start -->
+                    <div class="img_box">
+                        <div class="photo_box">{{Restaurant.thumUrl}}</div>
+                        </br>
+                        <div class="map_api">지도</div>
+                    </div>
+                    <!-- info start -->
+                    <div class="info_box">
+                        <div class="info_detail_box">설명
+                            <div>{{Restaurant.name}}</div>
+                            <div>{{Restaurant.address}}</div>
+                            <div>{{Restaurant.telDisplay}}</div>
+                            <div>{{Restaurant.bizhourInfo}}</div>
+                            <div>{{Restaurant.homePage}}</div>
+                            <div>{{Restaurant.menuInfo}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- comment start -->
+                <div class="comment_box">
+                    <!-- cbox write start -->
+                    <div class="cbox_write_area">
+                        <form action="/s/post/{{postId}}/comment" method="post">
+                           <div class="card-body">
+                              <textarea name="content" class="form-control" rows="1"></textarea>
+                           </div>      
+                           <div class="card-footer"></div>
+                               <button type="submit" class="btn btn-primary">등록</button>
+                           </div>
+                        </form>
+                    </div>
+                    <br />
+                        <input class="cbox_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
+                    </div>
+                    <!-- cbox view start -->
+                    <div class="cbox_view_comment">
+                        <div class="cbox_comment_box">
+                            <ul id="reply-box" class="list-group">
+
+                                {{#comments}}
+                                <li class="list-group-item d-flex justify-content-between">
+                                  <div>{{comment.content}}</div>
+                                  <div class="d-flex">
+                                    <div class="font-italic">작성자 : {{comment.user.username}} &nbsp;</div>
+                                    {{#auth}}
+                                    <button class="badge bg-primary" onclick="deleteComment('{{comment.id}}');">삭제</button>
+                                    {{/auth}}
+                                  </div>
+                                </li>
+                                {{/comments}}
+                          
+                              </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{>/layout/footer}}
