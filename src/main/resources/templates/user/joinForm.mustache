@@ -12,15 +12,16 @@
         <input type="text" class="form-control" placeholder="Enter id" name="id" id="id" required>
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Enter password" name="password" required maxlength="20">
+        <input type="password" class="form-control" placeholder="Enter password" name="password" id="password" required maxlength="20">
       </div>
+      <div id="my-error-box"></div>
       <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Enter passwordCheck" name="" required maxlength="20">
+        <input type="password" class="form-control" placeholder="Enter passwordCheck" name="" id="same-password" required maxlength="20">
       </div>
       <div class="mb-3">
           <input type="email" class="form-control" placeholder="Enter email" name="email" id="email">
         </div>
-      <button type="submit" class="btn btn-dark">회원가입</button>
+      <button type="submit" id="join-btn" disabled class="btn btn-dark">회원가입</button>
   </form>
   <div class="my_auth_form_box_link">
     <div><a href="/login-form">로그인</a></div>
@@ -43,6 +44,10 @@ $("#email").keyup((event)=>{
           //console.log(event.target.value);
           emailSameCheck(event.target.value);
         });
+        
+$("#same-password").keyup((event) => {
+        passwordCheck();
+      });
 
 
 async function idSameCheck(){
@@ -67,6 +72,22 @@ async function emailSameCheck(){
   let prevUseremail = $("#email").val().slice(0,-1);
   $("#email").val(prevUseremail);
 }
+}
+
+
+function passwordCheck(){
+  let password = $("#password").val();
+  let samePassword = $("#same-password").val();
+  let errorMsg = ` `;
+    if(password == samePassword){
+      errorMsg += "";
+      $("#my-error-box").html(errorMsg);
+      $("#join-btn").prop('disabled', false);
+    }else{
+      errorMsg += `비밀번호가 일치하지 않습니다.<br/>`;
+      $("#my-error-box").html(errorMsg);
+      $("#join-btn").prop('disabled', true);
+    }
 }
 
 </script>
