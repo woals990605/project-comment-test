@@ -124,7 +124,6 @@ public class UserService {
         } else {
             throw new RuntimeException("회원수정에 실패하였습니다.");
         }
-
     }
 
     @Transactional

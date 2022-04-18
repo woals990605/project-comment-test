@@ -37,6 +37,7 @@ public class Love {
     @JoinColumn(name = "postId")
 
     @ManyToOne
+
     private Restaurant restaurant;
 
     @CreatedDate

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -236,6 +237,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/delete")
+
     public @ResponseBody ResponseDto<String> userDelete(@RequestParam Integer no, @RequestParam String userPw,
             Model model) {
         User principal = (User) session.getAttribute("principal");
