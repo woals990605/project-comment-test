@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -89,6 +87,12 @@ public class UserController {
         return "redirect:/login-form";
     }
 
+
+
+    // 웹브라우저 -> 회원가입 페이지 주세요!! (O)
+    // 앱 -> 회원가입 페이지 주세요? (X)
+    // 회원가입폼 (인증 X)
+
     @GetMapping("/join-form")
     public String joinForm() {
         return "user/joinForm";
@@ -109,8 +113,12 @@ public class UserController {
     @GetMapping("/login-form")
     public String loginForm(HttpServletRequest request, Model model) {
 
+
+        // jSessionId=fjsdklfjsadkfjsdlkj333333;remember=ssar
+        // request.getHeader("Cookie");
         if (request.getCookies() != null) {
-            Cookie[] cookies = request.getCookies();
+            Cookie[] cookies = request.getCookies(); // jSessionId, remember 두개가 있음.
+
 
             for (Cookie cookie : cookies) {
                 System.out.println("쿠키값 : " + cookie.getName());
@@ -124,7 +132,10 @@ public class UserController {
         return "user/loginForm";
     }
 
-    @PostMapping("/api/user/email/same-check")
+
+
+    @PostMapping("/login")
+
     public String login(@Valid LoginReqDto loginReqDto, BindingResult bindingResult, HttpServletResponse response) {
         System.out.println("사용자로 부터 받은 username, password : " + loginReqDto);
 
@@ -155,30 +166,35 @@ public class UserController {
     @GetMapping("/logout")
     public String logout() {
         session.invalidate();
-        return "redirect:/login-form";
+
+
+        return "redirect:/login-form"; // PostController 만들고 수정하자.
     }
 
-    // 유저 상세 페이지 (동적 -> DB연동 필요) - 인증(로그인) O
-    @GetMapping("/user/{no}")
-    public String detail(@PathVariable Integer no, Model model) {
-
-        // 유효성 검사 하기
+    // 앱은 이 메서드 요청 안함, 웹만 함
+    // SSR할지 CSR할지 선택 -> 이거는 SSR!
+    @GetMapping("/s/user/{no}")
+    public String detail(/* Model model, */@PathVariable Integer no, Model model) {
+        // DB에서 셀렉트해서 모델에 담으면 끝
+        // User userEntity = userService.회원정보(id);
+        // model.addAttribute("user", userEntity);
         User principal = (User) session.getAttribute("principal");
 
-        // 1. 인증 체크 (로그인하지 않고 주소로 접근 막기)
+        // 1. 인증 체크
+
         if (principal == null) {
             return "error/page1";
         }
 
-        // 2. 권한 체크
+
+
+        // 2. 권한체크
         if (principal.getNo() != no) {
-            return "error/page1";
+            return "error/page1";// http 상태코드 403을 함께 리턴!!
         }
 
         User userEntity = userService.회원정보(no);
-
         if (userEntity == null) {
-            // 누군가 고의로 DELETE 하지 않는 이상 거의 타지 않는 오류
             return "error/page1";
 
         } else {
@@ -226,6 +242,7 @@ public class UserController {
         return new ResponseDto<String>(1, "성공", null);
     }
 
+
     @RequestMapping("user/delete")
     public @ResponseBody ResponseDto<String> userDelete(@RequestParam Integer no, @RequestParam String userPw,
             Model model) {
@@ -237,5 +254,6 @@ public class UserController {
             return new ResponseDto<String>(-1, "실패", null);
         }
     }
+
 
 }

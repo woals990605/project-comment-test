@@ -30,11 +30,14 @@ public class Love {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JoinColumn(name = "userId")
+
+
+    @JoinColumn(name = "userNo")
     @ManyToOne
     private User user;
 
-    @JoinColumn(name = "restId")
+    @JoinColumn(name = "postId")
+
     @ManyToOne
     private Restaurant resturant;
 

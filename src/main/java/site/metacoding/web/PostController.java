@@ -1,5 +1,7 @@
 package site.metacoding.web;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import site.metacoding.domain.post.Restaurant;
 import site.metacoding.domain.user.User;
 import site.metacoding.service.PostService;
 import site.metacoding.web.dto.CommentResponseDto;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -43,6 +46,7 @@ public class PostController {
         // if (postEntity == null) {
         // return "error/page1";
         // }
+
         User principal = (User) session.getAttribute("principal");
 
         List<CommentResponseDto> comments = new ArrayList<>();
@@ -67,6 +71,7 @@ public class PostController {
 
         model.addAttribute("Restaurant", postEntity);
         model.addAttribute("comments", comments);
+
         return "post/detail";
 
     }

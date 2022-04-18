@@ -11,6 +11,10 @@ import site.metacoding.domain.user.User;
 import site.metacoding.domain.user.UserRepository;
 import site.metacoding.util.email.EmailUtil;
 import site.metacoding.web.dto.user.IdFindReqDto;
+<<<<<<< HEAD
+=======
+import site.metacoding.web.dto.user.JoinReqDto;
+>>>>>>> 9954df4fc69a4df1cccf5ae88c770cbf47782eaf
 import site.metacoding.web.dto.user.PasswordResetReqDto;
 
 @RequiredArgsConstructor
@@ -122,6 +126,7 @@ public class UserService {
             throw new RuntimeException("회원수정에 실패하였습니다.");
         }
 
+<<<<<<< HEAD
     }
 
     @Transactional
@@ -142,4 +147,7 @@ public class UserService {
 
     public static void deleteUser(String userId) {
     }
+=======
+    } // 트랜잭션이 걸려있으면 @Service가 종료될 때 변경 감지 후 DB에 UPDATE -> 더티체킹
+>>>>>>> 9954df4fc69a4df1cccf5ae88c770cbf47782eaf
 }

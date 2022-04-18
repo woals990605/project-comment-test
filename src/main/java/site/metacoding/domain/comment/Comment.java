@@ -33,9 +33,11 @@ public class Comment {
 
     @JoinColumn(name = "postId")
     @ManyToOne
-    private Restaurant restaurant;
 
-    @JoinColumn(name = "userId")
+    private Restaurant resturant;
+
+    @JoinColumn(name = "userNo")
+
     @ManyToOne
     private User user;
 
