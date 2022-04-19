@@ -49,30 +49,31 @@ public class PostController {
         // return "error/page1";
         // }
 
-        User principal = (User) session.getAttribute("principal");
+        // User principal = (User) session.getAttribute("principal");
 
-        List<CommentResponseDto> comments = new ArrayList<>();
+        // List<CommentResponseDto> comments = new ArrayList<>();
 
-        System.out.println("comments : " + comments);
+        // System.out.println("comments : " + comments);
 
-        for (Comment comment : postEntity.getComments()) {
+        // for (Comment comment : postEntity.getComments()) {
 
-            CommentResponseDto dto = new CommentResponseDto();
-            dto.setComment(comment);
+        // CommentResponseDto dto = new CommentResponseDto();
+        // dto.setComment(comment);
 
-            if (principal != null) { // 인증
-                if (principal.getId() == comment.getUser().getId()) { // 권한
-                    dto.setAuth(true);
-                } else {
-                    dto.setAuth(false);
-                }
-            }
+        // if (principal != null) { // 인증
+        // if (principal.getId() == comment.getUser().getId()) { // 권한
+        // dto.setAuth(true);
+        // } else {
+        // dto.setAuth(false);
+        // }
+        // }
 
-            comments.add(dto);
-        }
+        // comments.add(dto);
+        // }
 
         model.addAttribute("Restaurant", postEntity);
-        model.addAttribute("comments", comments);
+        model.addAttribute("postId", postEntity);
+        // model.addAttribute("comments", comments);
 
         return "post/detail";
 
