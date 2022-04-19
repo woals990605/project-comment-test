@@ -21,13 +21,12 @@ public class PostService {
 
     public Page<Restaurant> mSearch(String keyword, Integer page) {
         PageRequest pr = PageRequest.of(page, 20, Sort.by(Direction.DESC, "id"));
-        if (keyword == null) {
-            restaurantRepository.mSearch("");
+        if (keyword.equals("")) {
+            return restaurantRepository.findAll(pr);
         } else {
-            restaurantRepository.mSearch(keyword);
-
+            return restaurantRepository.mSearch(keyword, pr);
         }
-        return restaurantRepository.findAll(pr);
+
     }
 
     public Restaurant 글상세보기(Integer id) {
