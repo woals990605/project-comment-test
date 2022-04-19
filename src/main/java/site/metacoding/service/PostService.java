@@ -3,6 +3,10 @@ package site.metacoding.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -15,12 +19,15 @@ public class PostService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public List<Restaurant> mSearch(String keyword) {
+    public Page<Restaurant> mSearch(String keyword, Integer page) {
+        PageRequest pr = PageRequest.of(page, 20, Sort.by(Direction.DESC, "id"));
         if (keyword == null) {
-            return restaurantRepository.mSearch("");
+            restaurantRepository.mSearch("");
         } else {
-            return restaurantRepository.mSearch(keyword);
+            restaurantRepository.mSearch(keyword);
+
         }
+        return restaurantRepository.findAll(pr);
     }
 
     public Restaurant 글상세보기(Integer id) {

@@ -50,6 +50,21 @@
                 {{/Restaurant}}
             </tbody>
         </table>
+        <ul class="pagination justify-content-center">
+            {{#Restaurant.first}}
+            <li class="page-item disabled"><a class="page-link" href="?page={{prevPage}}">이전</a></li>
+            {{/Restaurant.first}}
+            {{^Restaurant.first}}
+            <li class="page-item"><a class="page-link" href="?page={{prevPage}}">이전</a></li>
+            {{/Restaurant.first}}
+            {{#Restaurant.last}}
+            <li class="page-item disabled"><a class="page-link" href="?page={{nextPage}}">다음</a></li>
+            {{/Restaurant.last}}
+            {{^Restaurant.last}}
+            <li class="page-item"><a class="page-link" href="?page={{nextPage}}">다음</a></li>
+            {{/Restaurant.last}}
+        </ul>
+    
     </div>
 
 </body>
