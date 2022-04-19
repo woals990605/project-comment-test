@@ -26,7 +26,9 @@ public class CommentService {
 
         if (postOp.isPresent()) {
             Restaurant postEntity = postOp.get();
-            comment.setResturant(postEntity);
+
+            comment.setRestaurant(postEntity);
+
         } else {
             throw new RuntimeException("없는 게시글에 댓글을 작성할 수 없습니다");
         }

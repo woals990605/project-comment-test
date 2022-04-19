@@ -35,8 +35,10 @@ public class Love {
     private User user;
 
     @JoinColumn(name = "postId")
+
     @ManyToOne
-    private Restaurant resturant;
+
+    private Restaurant restaurant;
 
     @CreatedDate
     private LocalDateTime createDate;

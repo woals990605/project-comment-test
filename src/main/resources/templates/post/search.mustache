@@ -36,9 +36,12 @@
               {{#Restaurant}}
                 <tr>
                     <td>{{#thumUrl}}{{thumUrl}}{{/thumUrl}}{{^thumUrl}}null{{/thumUrl}}</td>
+
+
                     <td>
                         <a href="/post/{{id}}">{{#name}}{{name}}{{/name}}{{^name}}null{{/name}}</a>
                     </td>
+
                     <td>{{#address}}{{address}}{{/address}}{{^address}}null{{/address}}</td>
                     <td>{{#category}}{{category}}{{/category}}{{^category}}null{{/category}}</td>
                     <td>{{createDate}}</td>

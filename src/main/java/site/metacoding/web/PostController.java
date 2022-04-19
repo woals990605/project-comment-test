@@ -1,8 +1,10 @@
 package site.metacoding.web;
 
+
+
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,8 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.domain.comment.Comment;
 import site.metacoding.domain.post.Restaurant;
+import site.metacoding.domain.user.User;
 import site.metacoding.service.PostService;
+import site.metacoding.web.dto.CommentResponseDto;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -40,8 +46,32 @@ public class PostController {
         // if (postEntity == null) {
         // return "error/page1";
         // }
+
+        User principal = (User) session.getAttribute("principal");
+
+        List<CommentResponseDto> comments = new ArrayList<>();
+
+        System.out.println("comments : " + comments);
+
+        for (Comment comment : postEntity.getComments()) {
+
+            CommentResponseDto dto = new CommentResponseDto();
+            dto.setComment(comment);
+
+            if (principal != null) { // 인증
+                if (principal.getId() == comment.getUser().getId()) { // 권한
+                    dto.setAuth(true);
+                } else {
+                    dto.setAuth(false);
+                }
+            }
+
+            comments.add(dto);
+        }
+
         model.addAttribute("Restaurant", postEntity);
-        model.addAttribute("postId", postEntity);
+        model.addAttribute("comments", comments);
+
         return "post/detail";
 
     }

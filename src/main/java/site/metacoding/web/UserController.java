@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
@@ -91,6 +92,7 @@ public class UserController {
     // 웹브라우저 -> 회원가입 페이지 주세요!! (O)
     // 앱 -> 회원가입 페이지 주세요? (X)
     // 회원가입폼 (인증 X)
+
     @GetMapping("/join-form")
     public String joinForm() {
         return "user/joinForm";
@@ -110,6 +112,7 @@ public class UserController {
     // 로그인폼 (인증 X)
     @GetMapping("/login-form")
     public String loginForm(HttpServletRequest request, Model model) {
+
         // jSessionId=fjsdklfjsadkfjsdlkj333333;remember=ssar
         // request.getHeader("Cookie");
         if (request.getCookies() != null) {
@@ -128,6 +131,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+
     public String login(@Valid LoginReqDto loginReqDto, BindingResult bindingResult, HttpServletResponse response) {
         System.out.println("사용자로 부터 받은 username, password : " + loginReqDto);
 
@@ -158,6 +162,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout() {
         session.invalidate();
+
         return "redirect:/login-form"; // PostController 만들고 수정하자.
     }
 
@@ -171,6 +176,7 @@ public class UserController {
         User principal = (User) session.getAttribute("principal");
 
         // 1. 인증 체크
+
         if (principal == null) {
             return "error/page1";
         }
@@ -183,6 +189,7 @@ public class UserController {
         User userEntity = userService.회원정보(no);
         if (userEntity == null) {
             return "error/page1";
+
         } else {
             model.addAttribute("user", userEntity);
             return "user/detail";
@@ -239,7 +246,6 @@ public class UserController {
         } else {
             return new ResponseDto<String>(-1, "실패", null);
         }
-
     }
 
 }
