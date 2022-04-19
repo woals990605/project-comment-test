@@ -11,7 +11,6 @@ import site.metacoding.domain.user.User;
 import site.metacoding.domain.user.UserRepository;
 import site.metacoding.util.email.EmailUtil;
 import site.metacoding.web.dto.user.IdFindReqDto;
-import site.metacoding.web.dto.user.JoinReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
 
 @RequiredArgsConstructor
@@ -124,4 +123,10 @@ public class UserService {
         }
 
     } // 트랜잭션이 걸려있으면 @Service가 종료될 때 변경 감지 후 DB에 UPDATE -> 더티체킹
+
+    @Transactional
+    public void 회원탈퇴(Integer no) {
+        userRepository.deleteById(no);
+
+    }
 }

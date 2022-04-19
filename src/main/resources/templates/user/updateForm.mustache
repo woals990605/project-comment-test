@@ -20,18 +20,23 @@
           <input type="text" class="form-control" value="{{principal.createDate}}" id="createDate" readonly>
         </div>
       <button type="button" class="btn btn-secondary" onclick="update()">수정완료</button>
+      <button type="button" class="btn btn-secondary" onclick="deleteUser()">회원탈퇴</button>
   </form>
+  
+    
+  
   <!-- 회원수정 폼 끝 -->
 
 </div>
 <!-- 컨테이너 끝 -->
 
 <script>
+   let no = $("#no").val();
 async function update(){
   // 1. jquery로 password, email 찾아서 자바스크립트 오브젝트로 만들기
   let myObj = {
     password: $("#password").val(),
-    email : $("#email").val()
+    email: $("#email").val(),
   }
   console.log(myObj);
   // 2. 자바스크립트 오브젝트를 json으로 변환하기
@@ -44,18 +49,18 @@ async function update(){
   // (1) content-type을 json으로 설정하기
   // (2) put 메서드로 변경하기
   // (3) body 데이터 실어 보내기
-  let no = $("#no").val();
+ 
   console.log(no);
-  let reponse = await fetch("/s/user/" + no, {
+  let response = await fetch("/s/user/" + no, {
     method: "PUT",
     body: json,
     headers: {
          "Content-Type": "application/json; charset=utf-8",
     }
 });
-console.log(reponse);
+console.log(response);
     // (4) ResponseDto로 응답받아서 code가 1이면 alert창으로 수정 성공 띄우기
-  let responseObject = await reponse.json();
+  let responseObject = await response.json();
   if (responseObject.code == 1) {
       alert("수정에 성공하였습니다.");
       location.href = "/s/user/"+no;
@@ -67,6 +72,23 @@ console.log(reponse);
   // (5) 수정 성공 메시지 이후에 / 메인 화면으로 이동하기 - location.href = "/"
   
 } 
+
+async function deleteUser(){
+  let response = await fetch(`/s/user/${no}`,{
+    method: "DELETE",
+  });
+  console.log(response);
+  let responseObject = await response.json();
+  console.log(responseObject);
+  if(responseObject.code==1){
+    alert("회원탈퇴에 성공하였습니다.");
+    location.href="/join-form";
+  }else{
+    alert("회원탈퇴에 실패 : "+responseObject.msg)
+  }
+  
+}
+
 </script>
 
 {{> /layout/footer}}

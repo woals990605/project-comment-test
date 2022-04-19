@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -225,6 +226,20 @@ public class UserController {
         session.setAttribute("principal", userEntity);// 세션변경 - 덮어쓰기
 
         return new ResponseDto<String>(1, "성공", null);
+    }
+
+    @DeleteMapping("/s/user/{no}")
+    public @ResponseBody ResponseDto<String> userDelete(@PathVariable Integer no) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal != null) {
+            userService.회원탈퇴(no);
+            session.invalidate();
+
+            return new ResponseDto<String>(1, "성공", null);
+        } else {
+            return new ResponseDto<String>(-1, "실패", null);
+        }
+
     }
 
 }

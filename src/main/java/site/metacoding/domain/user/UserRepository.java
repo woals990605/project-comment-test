@@ -3,6 +3,7 @@ package site.metacoding.domain.user;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -23,4 +24,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM user WHERE name = :name AND email = :email", nativeQuery = true)
     Optional<User> findId(@Param("name") String name, @Param("email") String email);
+
+    // @Modifying
+    // @Query(value = "DELETE FROM user WHERE id = :id", nativeQuery = true)
+    // Optional<User> deleteUser(@Param("id") String id);
 }
