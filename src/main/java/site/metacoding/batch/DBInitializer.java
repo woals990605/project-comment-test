@@ -16,7 +16,7 @@ import site.metacoding.domain.post.RestaurantRepository;
 @Configuration
 public class DBInitializer {
 
-    @Bean
+    // @Bean
     public CommandLineRunner initDB(RestaurantRepository restaurantRepository) {
         return (restaurant) -> {
 
