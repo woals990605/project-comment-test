@@ -1,34 +1,36 @@
-    {{>/layout/post-header}}
+{{>/layout/post-header}}
 
-    <div class="main_box">
-        <div class="background">
-            <!-- detail page start -->
-            <div class="detail_page">
-                <!-- data box start -->
-                <div class="data_box">
-                    <!-- img box start -->
-                    <div class="img_box">
-                        <div class="photo_box">{{Restaurant.thumUrl}}</div>
-                        </br>
-                        <div class="map_api">지도</div>
-                    </div>
-                    <!-- info start -->
-                    <div class="info_box">
-                        <div class="info_detail_box">설명
-                            <div>{{Restaurant.name}}</div>
-                            <div>{{Restaurant.address}}</div>
-                            <div>{{Restaurant.telDisplay}}</div>
-                            <div>{{Restaurant.bizhourInfo}}</div>
-                            <div>{{Restaurant.homePage}}</div>
-                            <div>{{Restaurant.menuInfo}}</div>
-                        </div>
+<div class="main_box">
+    <div class="background">
+        <!-- detail page start -->
+        <div class="detail_page">
+            <!-- data box start -->
+            <div class="data_box">
+                <!-- img box start -->
+                <div class="img_box">
+                    <div class="photo_box">{{restaurant.thumUrl}}</div>
+                    </br>
+                    <div class="map_api">
+                        <div id="map" style="width:100%;height:400px;"></div>
                     </div>
                 </div>
-                <!-- comment start -->
-                <div class="comment_box">
-                    <!-- cbox write start -->
+                <!-- info start -->
+                <div class="info_box">
+                    <div class="info_detail_box">설명
+                        <div>{{restaurant.name}}</div>
+                        <div>{{restaurant.address}}</div>
+                        <div>{{restaurant.telDisplay}}</div>
+                        <div>{{restaurant.bizhourInfo}}</div>
+                        <div>{{restaurant.homePage}}</div>
+                        <div>{{restaurant.menuInfo}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- comment start -->
+            <div class="comment_box">
+                <!-- cbox write start -->
 
-                    <!-- <div class="cbox_write_area">
+                <!-- <div class="cbox_write_area">
                         <form action="/s/post/{{postId}}/comment" method="post">
                            <div class="card-body">
                               <textarea name="content" class="form-control" rows="1"></textarea>
@@ -41,8 +43,8 @@
                     <br />
                         <input class="cbox_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
                     </div> -->
-                    <!-- cbox view start -->
-                    <!-- <div class="cbox_view_comment">
+                <!-- cbox view start -->
+                <!-- <div class="cbox_view_comment">
                         <div class="cbox_comment_box">
                             <ul id="reply-box" class="list-group">
 
@@ -61,10 +63,30 @@
                               </ul>
                         </div> -->
 
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    
-    {{>/layout/footer}}
+</div>
+</div>
+
+<script>
+    let x = "{{restaurant.x}}";
+    let y = "{{restaurant.y}}";
+
+    console.log(x);
+    console.log(y);
+
+    var mapOptions = {
+        center: new naver.maps.LatLng(y, x),
+        zoom: 10
+    };
+
+    var map = new naver.maps.Map('map', mapOptions);
+
+    var marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(y, x),
+        map: map
+    });
+</script>
+
+{{>/layout/footer}}

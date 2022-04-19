@@ -32,7 +32,7 @@ public class PostController {
         Page<Restaurant> restaurants = postService.mSearch(keyword, page);
         // System.out.println("사이즈 : " + restaurants.size());
 
-        model.addAttribute("Restaurant", restaurants);
+        model.addAttribute("restaurant", restaurants);
         model.addAttribute("nextPage", page + 1);
         model.addAttribute("prevPage", page - 1);
         model.addAttribute("keyword", keyword);
@@ -71,7 +71,7 @@ public class PostController {
         // comments.add(dto);
         // }
 
-        model.addAttribute("Restaurant", postEntity);
+        model.addAttribute("restaurant", postEntity);
         model.addAttribute("postId", postEntity);
         // model.addAttribute("comments", comments);
 

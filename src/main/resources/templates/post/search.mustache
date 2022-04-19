@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-              {{#Restaurant}}
+                {{#restaurant}}
                 <tr>
                     <td>{{#thumUrl}}{{thumUrl}}{{/thumUrl}}{{^thumUrl}}null{{/thumUrl}}</td>
 
@@ -47,24 +47,24 @@
                     <td>{{createDate}}</td>
                     <td>{{updateDate}}</td>
                 </tr>
-                {{/Restaurant}}
+                {{/restaurant}}
             </tbody>
         </table>
         <ul class="pagination justify-content-center">
-            {{#Restaurant.first}}
+            {{#restaurant.first}}
             <li class="page-item disabled"><a class="page-link" href="?page={{prevPage}}">이전</a></li>
-            {{/Restaurant.first}}
-            {{^Restaurant.first}}
+            {{/restaurant.first}}
+            {{^restaurant.first}}
             <li class="page-item"><a class="page-link" href="?page={{prevPage}}">이전</a></li>
-            {{/Restaurant.first}}
-            {{#Restaurant.last}}
+            {{/restaurant.first}}
+            {{#restaurant.last}}
             <li class="page-item disabled"><a class="page-link" href="?page={{nextPage}}">다음</a></li>
-            {{/Restaurant.last}}
-            {{^Restaurant.last}}
+            {{/restaurant.last}}
+            {{^restaurant.last}}
             <li class="page-item"><a class="page-link" href="?page={{nextPage}}">다음</a></li>
-            {{/Restaurant.last}}
+            {{/restaurant.last}}
         </ul>
-    
+
     </div>
 
 </body>
