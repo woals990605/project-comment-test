@@ -17,7 +17,7 @@ import site.metacoding.domain.comment.Comment;
 import site.metacoding.domain.post.Restaurant;
 import site.metacoding.domain.user.User;
 import site.metacoding.service.PostService;
-import site.metacoding.web.dto.CommentResponseDto;
+import site.metacoding.web.dto.comment.CommentResponseDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,7 +26,13 @@ public class PostController {
     private final PostService postService;
     private final HttpSession session;
 
-    @GetMapping({ "/", "/post/list" })
+    @GetMapping("/")
+    public String main(@RequestParam(defaultValue = "") String keyword, Model model) {
+        model.addAttribute("keyword", keyword);
+        return "post/main";
+    }
+
+    @GetMapping("/post/list")
     public String list(@RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "") String keyword, Model model) {
         Page<Restaurant> restaurants = postService.mList(keyword, page);
@@ -45,36 +51,34 @@ public class PostController {
 
         Restaurant postEntity = postService.글상세보기(id);
 
-        // // 게시불이 없으면 error 페이지로 이동
-        // if (postEntity == null) {
-        // return "error/page1";
-        // }
+        // 게시불이 없으면 error 페이지로 이동
+        if (postEntity == null) {
+            return "error/page1";
+        }
 
-        // User principal = (User) session.getAttribute("principal");
+        User principal = (User) session.getAttribute("principal");
 
-        // List<CommentResponseDto> comments = new ArrayList<>();
+        List<CommentResponseDto> comments = new ArrayList<>();
 
-        // System.out.println("comments : " + comments);
+        for (Comment comment : postEntity.getComments()) {
 
-        // for (Comment comment : postEntity.getComments()) {
+            CommentResponseDto dto = new CommentResponseDto();
+            dto.setComment(comment);
 
-        // CommentResponseDto dto = new CommentResponseDto();
-        // dto.setComment(comment);
+            if (principal != null) { // 인증
+                if (principal.getNo() == comment.getUser().getNo()) { // 권한
+                    dto.setAuth(true);
+                } else {
+                    dto.setAuth(false);
+                }
+            }
 
-        // if (principal != null) { // 인증
-        // if (principal.getId() == comment.getUser().getId()) { // 권한
-        // dto.setAuth(true);
-        // } else {
-        // dto.setAuth(false);
-        // }
-        // }
-
-        // comments.add(dto);
-        // }
+            comments.add(dto);
+        }
 
         model.addAttribute("restaurant", postEntity);
         model.addAttribute("postId", postEntity);
-        // model.addAttribute("comments", comments);
+        model.addAttribute("comments", comments);
 
         return "post/detail";
 

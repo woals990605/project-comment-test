@@ -30,6 +30,7 @@ import site.metacoding.web.dto.user.IdFindReqDto;
 import site.metacoding.web.dto.user.JoinReqDto;
 import site.metacoding.web.dto.user.LoginReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
+import site.metacoding.web.dto.user.UserCommentResDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -191,6 +192,8 @@ public class UserController {
             return "error/page1";
 
         } else {
+            UserCommentResDto commentResDto = userService.댓글내역(no);
+            model.addAttribute("commentResDto", commentResDto);
             model.addAttribute("user", userEntity);
             return "user/detail";
         }

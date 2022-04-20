@@ -1,15 +1,20 @@
 package site.metacoding.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.domain.comment.Comment;
+import site.metacoding.domain.comment.CommentRepository;
 import site.metacoding.domain.handler.CustomException;
+import site.metacoding.domain.post.Restaurant;
 import site.metacoding.domain.user.User;
 import site.metacoding.domain.user.UserRepository;
 import site.metacoding.util.email.EmailUtil;
+import site.metacoding.web.dto.user.UserCommentResDto;
 import site.metacoding.web.dto.user.IdFindReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
 
@@ -19,6 +24,7 @@ import site.metacoding.web.dto.user.PasswordResetReqDto;
 @Service // 컴포넌트 스캔시에 IoC 컨테이너에 등록
 public class UserService {
 
+    private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final EmailUtil emailUtil;
 
@@ -128,5 +134,13 @@ public class UserService {
     public void 회원탈퇴(Integer no) {
         userRepository.deleteById(no);
 
+    }
+
+    public UserCommentResDto 댓글내역(Integer no) {
+        List<Comment> commentEntity = commentRepository.findByUserComments(no);
+        Optional<User> userEntity = userRepository.findById(no);
+        UserCommentResDto userCommentResDto = new UserCommentResDto(
+                userEntity, commentEntity);
+        return userCommentResDto;
     }
 }

@@ -20,7 +20,7 @@
                         <div>{{restaurant.name}}</div>
                         <div>{{restaurant.address}}</div>
                         <div>{{restaurant.telDisplay}}</div>
-                        <div>{{restaurant.bizhourInfo}}</div>
+                        <div>{{#restaurant.bizhourInfo}}{{restaurant.bizhourInfo}}{{/restaurant.bizhourInfo}}{{^restaurant.bizhourInfo}}정보 없음{{/restaurant.bizhourInfo}}</div>
                         <div>{{restaurant.homePage}}</div>
                         <div>{{restaurant.menuInfo}}</div>
                     </div>
@@ -30,29 +30,27 @@
             <div class="comment_box">
                 <!-- cbox write start -->
 
-                <!-- <div class="cbox_write_area">
-                        <form action="/s/post/{{postId}}/comment" method="post">
-                           <div class="card-body">
-                              <textarea name="content" class="form-control" rows="1"></textarea>
-                           </div>      
-                           <div class="card-footer"></div>
-                               <button type="submit" class="btn btn-primary">등록</button>
-                           </div>
-                        </form>
-                    </div>
-                    <br />
-                        <input class="cbox_input" type="text" placeholder="댓글을 작성하려면 로그인 해주세요">
-                    </div> -->
-                <!-- cbox view start -->
-                <!-- <div class="cbox_view_comment">
-                        <div class="cbox_comment_box">
-                            <ul id="reply-box" class="list-group">
+                <div class="card">
+                    <form action="/s/post/{{postId.id}}/comment" method="post">
+                        <div class="card-body">
+                            <textarea name="content" class="form-control" rows="1" placeholder="댓글을 작성하려면 로그인 해주세요"></textarea>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">등록</button>
+                        </div>
+                    </form>
+                </div>
+                <br />
+                
+                <div class="card">
+                        <div class="card-header"><b>댓글 리스트</b></div>
+                        <ul id="reply-box" class="list-group">
 
                                 {{#comments}}
                                 <li class="list-group-item d-flex justify-content-between">
                                   <div>{{comment.content}}</div>
                                   <div class="d-flex">
-                                    <div class="font-italic">작성자 : {{comment.user.username}} &nbsp;</div>
+                                    <div class="font-italic">작성자 : {{comment.user.id}} &nbsp;</div>
                                     {{#auth}}
                                     <button class="badge bg-primary" onclick="deleteComment('{{comment.id}}');">삭제</button>
                                     {{/auth}}
@@ -60,8 +58,8 @@
                                 </li>
                                 {{/comments}}
                           
-                              </ul>
-                        </div> -->
+                            </ul>
+                        </div>
 
             </div>
         </div>
@@ -87,6 +85,23 @@
         position: new naver.maps.LatLng(y, x),
         map: map
     });
+</script>
+
+<script>
+      // 댓글 삭제
+      async function deleteComment(commentId) {
+        let response = await fetch(`/s/comment/${commentId}`, {
+            method: "DELETE"
+        });
+        let responseParse = await response.json();
+        if (responseParse.code == 1) {
+            alert("삭제 성공");
+            location.reload(); // 페이지 새로고침 ajax + ssr
+        } else {
+            alert("삭제 실패");
+        }
+    }
+
 </script>
 
 {{>/layout/footer}}

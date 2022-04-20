@@ -1,4 +1,4 @@
-package site.metacoding.web.dto;
+package site.metacoding.web.dto.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,5 +11,5 @@ import site.metacoding.domain.comment.Comment;
 public class CommentResponseDto {
     private Comment comment;
     private boolean auth;
-    
+
 }
