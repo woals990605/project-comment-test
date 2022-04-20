@@ -19,12 +19,12 @@ public class PostService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public Page<Restaurant> mSearch(String keyword, Integer page) {
+    public Page<Restaurant> mList(String keyword, Integer page) {
         PageRequest pr = PageRequest.of(page, 20, Sort.by(Direction.DESC, "id"));
         if (keyword.equals("")) {
             return restaurantRepository.findAll(pr);
         } else {
-            return restaurantRepository.mSearch(keyword, pr);
+            return restaurantRepository.mList(keyword, pr);
         }
 
     }

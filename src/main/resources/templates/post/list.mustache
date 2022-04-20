@@ -52,16 +52,16 @@
         </table>
         <ul class="pagination justify-content-center">
             {{#restaurant.first}}
-            <li class="page-item disabled"><a class="page-link" href="?page={{prevPage}}">이전</a></li>
+            <li class="page-item disabled"><a class="page-link" href="?keyword={{keyword}}&page={{prevPage}}">이전</a></li>
             {{/restaurant.first}}
             {{^restaurant.first}}
-            <li class="page-item"><a class="page-link" href="?page={{prevPage}}">이전</a></li>
+            <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{prevPage}}">이전</a></li>
             {{/restaurant.first}}
             {{#restaurant.last}}
-            <li class="page-item disabled"><a class="page-link" href="?page={{nextPage}}">다음</a></li>
+            <li class="page-item disabled"><a class="page-link" href="?keyword={{keyword}}&page={{nextPage}}">다음</a></li>
             {{/restaurant.last}}
             {{^restaurant.last}}
-            <li class="page-item"><a class="page-link" href="?page={{nextPage}}">다음</a></li>
+            <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{nextPage}}">다음</a></li>
             {{/restaurant.last}}
         </ul>
 

@@ -27,16 +27,17 @@ public class PostController {
     private final HttpSession session;
 
     @GetMapping({ "/", "/post/list" })
-    public String search(@RequestParam(defaultValue = "0") Integer page,
+    public String list(@RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "") String keyword, Model model) {
-        Page<Restaurant> restaurants = postService.mSearch(keyword, page);
+        Page<Restaurant> restaurants = postService.mList(keyword, page);
         // System.out.println("사이즈 : " + restaurants.size());
 
         model.addAttribute("restaurant", restaurants);
         model.addAttribute("nextPage", page + 1);
         model.addAttribute("prevPage", page - 1);
         model.addAttribute("keyword", keyword);
-        return "post/search";
+
+        return "post/list";
     }
 
     @GetMapping("/post/{id}") // 인증이 필요없기 때문에 주소는 이대로 놔둬야 한다. 따라서 주소는 놔두고 Get요청시에는 필터에서 /post 거르는거를 제외를 시켜준다.
