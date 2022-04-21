@@ -20,9 +20,10 @@
         {{user.createDate}}
     </div>
     <br/>
+    {{#comments}}
     <div class="mb-3">
-        {{commentResDto.comment}}
-    </div>
+        가게이름 : {{restaurant.name}}-내가 단 댓글 : {{content}}</div>
+    {{/comments}}
 
     <a href="/s/user/update-form" class="btn btn-secondary">회원정보 수정 </a>
 

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
-    @Query(value = "SELECT * FROM category WHERE userNo = :userNo", nativeQuery = true)
-    List<Comment> findByUserComments(@Param("userNo") Integer no);
+    @Query(value = "SELECT * FROM comment WHERE userNo = :userNo ORDER BY id DESC ", nativeQuery = true)
+    List<Comment> findByUserComments(@Param("userNo") Integer userNo);
 }

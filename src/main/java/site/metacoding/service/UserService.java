@@ -10,11 +10,9 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.domain.comment.Comment;
 import site.metacoding.domain.comment.CommentRepository;
 import site.metacoding.domain.handler.CustomException;
-import site.metacoding.domain.post.Restaurant;
 import site.metacoding.domain.user.User;
 import site.metacoding.domain.user.UserRepository;
 import site.metacoding.util.email.EmailUtil;
-import site.metacoding.web.dto.user.UserCommentResDto;
 import site.metacoding.web.dto.user.IdFindReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
 
@@ -37,7 +35,7 @@ public class UserService {
 
         if (userOp.isPresent()) {
             User userEntity = userOp.get(); // 영속화
-            System.out.println("=====================" + userEntity.getId());
+            // System.out.println("=====================" + userEntity.getId());
             return userEntity.getId();
         } else {
             throw new CustomException("해당 이름이나 이메일이 존재하지 않습니다.");
@@ -136,11 +134,10 @@ public class UserService {
 
     }
 
-    public UserCommentResDto 댓글내역(Integer no) {
-        List<Comment> commentEntity = commentRepository.findByUserComments(no);
-        Optional<User> userEntity = userRepository.findById(no);
-        UserCommentResDto userCommentResDto = new UserCommentResDto(
-                userEntity, commentEntity);
-        return userCommentResDto;
+    public List<Comment> 댓글내역(User userEntity) {
+
+        List<Comment> commentEntity = commentRepository.findByUserComments(userEntity.getNo());
+
+        return commentEntity;
     }
 }

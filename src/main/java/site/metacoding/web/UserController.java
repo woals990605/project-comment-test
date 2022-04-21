@@ -1,5 +1,6 @@
 package site.metacoding.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.Cookie;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.domain.comment.Comment;
 import site.metacoding.domain.handler.CustomException;
 import site.metacoding.domain.user.User;
 import site.metacoding.service.UserService;
@@ -30,7 +31,6 @@ import site.metacoding.web.dto.user.IdFindReqDto;
 import site.metacoding.web.dto.user.JoinReqDto;
 import site.metacoding.web.dto.user.LoginReqDto;
 import site.metacoding.web.dto.user.PasswordResetReqDto;
-import site.metacoding.web.dto.user.UserCommentResDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -103,7 +103,7 @@ public class UserController {
     public String join(@Valid JoinReqDto joinReqDto, BindingResult bindingResult) {
 
         UtilValid.요청에러처리(bindingResult);
-        System.out.println("나와라 얍 : " + joinReqDto.toString());
+        // System.out.println("나와라 얍 : " + joinReqDto.toString());
         userService.회원가입(joinReqDto.toEntity());
 
         // redirect:매핑주소
@@ -120,7 +120,7 @@ public class UserController {
             Cookie[] cookies = request.getCookies(); // jSessionId, remember 두개가 있음.
 
             for (Cookie cookie : cookies) {
-                System.out.println("쿠키값 : " + cookie.getName());
+                // System.out.println("쿠키값 : " + cookie.getName());
                 if (cookie.getName().equals("remember")) {
                     model.addAttribute("remember", cookie.getValue());
                 }
@@ -134,7 +134,7 @@ public class UserController {
     @PostMapping("/login")
 
     public String login(@Valid LoginReqDto loginReqDto, BindingResult bindingResult, HttpServletResponse response) {
-        System.out.println("사용자로 부터 받은 username, password : " + loginReqDto);
+        // System.out.println("사용자로 부터 받은 username, password : " + loginReqDto);
 
         UtilValid.요청에러처리(bindingResult);
 
@@ -192,8 +192,8 @@ public class UserController {
             return "error/page1";
 
         } else {
-            UserCommentResDto commentResDto = userService.댓글내역(no);
-            model.addAttribute("commentResDto", commentResDto);
+            List<Comment> comments = userService.댓글내역(userEntity);
+            model.addAttribute("comments", comments);
             model.addAttribute("user", userEntity);
             return "user/detail";
         }

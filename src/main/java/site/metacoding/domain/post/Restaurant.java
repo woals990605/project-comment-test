@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import site.metacoding.domain.comment.Comment;
+import site.metacoding.domain.user.User;
 
 @NoArgsConstructor
 @AllArgsConstructor
